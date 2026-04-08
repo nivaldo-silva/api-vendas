@@ -45,4 +45,7 @@ public class Cliente {
     @Valid
     @Builder.Default
     private List<Endereco> enderecos = new ArrayList<>();
+
+    @Builder.Default
+    private boolean ativo = true;
 }

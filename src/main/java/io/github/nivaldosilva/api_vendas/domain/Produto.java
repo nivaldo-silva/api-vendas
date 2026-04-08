@@ -1,9 +1,7 @@
 package io.github.nivaldosilva.api_vendas.domain;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import io.github.nivaldosilva.api_vendas.exception.BusinessException;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -41,4 +39,14 @@ public class Produto {
     @Indexed(unique = true)
     @Field("codigo_de_barras")
     private String codigoDeBarras;
+
+    @PositiveOrZero(message = "O estoque não pode ser negativo")
+    private Integer estoque;
+
+    public void baixarEstoque(Integer quantidade) {
+        if (quantidade > this.estoque) {
+            throw new BusinessException("Estoque insuficiente para o produto: " + this.nome);
+        }
+        this.estoque -= quantidade;
+    }
 }

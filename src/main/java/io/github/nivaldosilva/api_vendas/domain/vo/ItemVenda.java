@@ -1,0 +1,38 @@
+package io.github.nivaldosilva.api_vendas.domain.vo;
+
+import jakarta.validation.constraints.*;
+import lombok.*;
+import java.math.BigDecimal;
+
+@Getter
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
+public class ItemVenda {
+
+    @NotBlank(message = "O ID do produto é obrigatório")
+    private String produtoId;
+
+    @NotBlank(message = "O nome do produto é obrigatório")
+    private String nome;
+
+    @NotNull
+    @Positive(message = "O preço unitário deve ser maior que zero")
+    private BigDecimal preco;
+
+    @NotNull
+    @Min(value = 1, message = "A quantidade mínima é 1")
+    private Integer quantidade;
+
+    @NotNull
+    @PositiveOrZero
+    private BigDecimal precoTotal;
+
+    public void atualizarInformaces(String nome, BigDecimal preco, Integer quantidade) {
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.precoTotal = preco.multiply(BigDecimal.valueOf(quantidade));
+    }
+}
