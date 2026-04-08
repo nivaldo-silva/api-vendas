@@ -29,6 +29,7 @@ public class ItemVenda {
 
     @NotNull
     @PositiveOrZero
+    @Field("preco_total")
     private BigDecimal precoTotal;
 
     public void atualizarInformaces(String nome, BigDecimal preco, Integer quantidade) {

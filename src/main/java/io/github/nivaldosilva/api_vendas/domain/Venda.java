@@ -7,7 +7,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
@@ -40,11 +39,8 @@ public class Venda {
     private LocalDateTime data = LocalDateTime.now();
 
     @ReadOnlyProperty
+    @Field("valor_total")
     private BigDecimal valorTotal;
-
-    @NotNull(message = "O valor da venda não pode ser nulo")
-    @PositiveOrZero(message = "O valor da venda deve ser zero ou positivo")
-    private BigDecimal valor;
 
     @NotNull(message = "O status da venda é obrigatório")
     private StatusVenda status;
@@ -59,3 +55,4 @@ public class Venda {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
+
