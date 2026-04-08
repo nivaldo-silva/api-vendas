@@ -2,6 +2,7 @@ package io.github.nivaldosilva.api_vendas.domain.vo;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Field;
 import java.math.BigDecimal;
 
 @Getter
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 public class ItemVenda {
 
     @NotBlank(message = "O ID do produto é obrigatório")
+    @Field("produto_id")
     private String produtoId;
 
     @NotBlank(message = "O nome do produto é obrigatório")

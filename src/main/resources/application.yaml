@@ -1,3 +1,9 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: api-vendas
+
+  mongodb:
+    uri: mongodb://localhost:27017/vendas
