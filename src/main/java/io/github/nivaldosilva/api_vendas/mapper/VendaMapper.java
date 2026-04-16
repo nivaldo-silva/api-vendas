@@ -1,24 +1,36 @@
 package io.github.nivaldosilva.api_vendas.mapper;
 
+import io.github.nivaldosilva.api_vendas.domain.Produto;
 import io.github.nivaldosilva.api_vendas.domain.Venda;
 import io.github.nivaldosilva.api_vendas.domain.vo.ItemVenda;
 import io.github.nivaldosilva.api_vendas.dto.VendaDTO;
 import io.github.nivaldosilva.api_vendas.enums.StatusVenda;
 import lombok.experimental.UtilityClass;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @UtilityClass
 public class VendaMapper {
 
-    public static Venda toEntity(VendaDTO.VendaRequest request) {
+    public static Venda toEntity(VendaDTO.VendaRequest request, Map<String, Produto> produtosNoBanco) {
         if (request == null) return null;
 
-        List<ItemVenda> items = request.items() == null
-                ? Collections.emptyList()
-                : request.items().stream()
-                .map(VendaMapper::toItemEntity)
+        List<ItemVenda> items = request.items().stream()
+                .map(itemReq -> {
+                    Produto produto = produtosNoBanco.get(itemReq.produtoId());
+                    BigDecimal precoTotal = ItemVenda.calcularPrecoTotal(produto.getPreco(), itemReq.quantidade());
+
+                    return ItemVenda.builder()
+                            .produtoId(itemReq.produtoId())
+                            .nome(produto.getNome())
+                            .preco(produto.getPreco())
+                            .quantidade(itemReq.quantidade())
+                            .precoTotal(precoTotal)
+                            .build();
+                })
                 .toList();
 
         return Venda.builder()
@@ -48,18 +60,7 @@ public class VendaMapper {
                 .build();
     }
 
-    private static ItemVenda toItemEntity(VendaDTO.ItemVendaRequest request) {
-        if (request == null) return null;
-
-        return ItemVenda.builder()
-                .produtoId(request.produtoId())
-                .quantidade(request.quantidade())
-                .build();
-    }
-
     private static VendaDTO.ItemVendaResponse toItemResponse(ItemVenda entity) {
-        if (entity == null) return null;
-
         return VendaDTO.ItemVendaResponse.builder()
                 .produtoId(entity.getProdutoId())
                 .nome(entity.getNome())

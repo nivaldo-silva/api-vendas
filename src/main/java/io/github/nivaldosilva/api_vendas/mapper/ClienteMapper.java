@@ -11,6 +11,10 @@ import java.util.List;
 public class ClienteMapper {
 
     public static Cliente toEntity(ClienteDTO.ClienteRequest request) {
+        return toEntity(request, null, true);
+    }
+
+    public static Cliente toEntity(ClienteDTO.ClienteRequest request, String id, boolean ativo) {
         if (request == null) return null;
 
         List<Endereco> enderecos = request.enderecos() == null
@@ -20,11 +24,13 @@ public class ClienteMapper {
                 .toList();
 
         return Cliente.builder()
+                .id(id)
                 .nome(request.nome())
                 .cpf(request.cpf())
                 .email(request.email())
                 .telefone(request.telefone())
                 .enderecos(enderecos)
+                .ativo(ativo)
                 .build();
     }
 
@@ -44,6 +50,7 @@ public class ClienteMapper {
                 .email(entity.getEmail())
                 .telefone(entity.getTelefone())
                 .enderecos(enderecos)
+                .ativo(entity.isAtivo())
                 .build();
     }
 }

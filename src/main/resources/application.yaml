@@ -6,4 +6,10 @@ spring:
     name: api-vendas
 
   mongodb:
+    auto-index-creation: true
     uri: mongodb://localhost:27017/vendas
+
+springdoc:
+  swagger-ui:
+    default-models-expand-depth: 1
+    tags-sorter: alpha

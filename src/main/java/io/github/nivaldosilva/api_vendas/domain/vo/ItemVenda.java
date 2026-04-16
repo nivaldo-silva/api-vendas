@@ -36,6 +36,13 @@ public class ItemVenda {
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;
-        this.precoTotal = preco.multiply(BigDecimal.valueOf(quantidade));
+        this.precoTotal = calcularPrecoTotal(preco, quantidade);
+    }
+
+    public static BigDecimal calcularPrecoTotal(BigDecimal precoUnitario, Integer quantidade) {
+        if (precoUnitario == null || quantidade == null) {
+            return BigDecimal.ZERO;
+        }
+        return precoUnitario.multiply(BigDecimal.valueOf(quantidade));
     }
 }

@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClienteRepository extends MongoRepository<Cliente, String> {
+
     Optional<Cliente> findByCpf(String cpf);
     Optional<Cliente> findByEmail(String email);
-    List<Cliente> findByNomeCompletoContainingIgnoreCase(String nome);
+    List<Cliente> findByNomeContainingIgnoreCase(String nome);
 
 
 }

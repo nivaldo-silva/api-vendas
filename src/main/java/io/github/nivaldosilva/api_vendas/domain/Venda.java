@@ -3,6 +3,7 @@ package io.github.nivaldosilva.api_vendas.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.nivaldosilva.api_vendas.domain.vo.ItemVenda;
 import io.github.nivaldosilva.api_vendas.enums.StatusVenda;
+import io.github.nivaldosilva.api_vendas.exception.BusinessException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -53,6 +54,20 @@ public class Venda {
         this.valorTotal = items.stream()
                 .map(ItemVenda::getPrecoTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public void finalizarVenda() {
+        if (this.status != StatusVenda.PENDENTE) {
+            throw new BusinessException("Apenas vendas pendentes podem ser finalizadas.");
+        }
+        this.status = StatusVenda.CONCLUIDA;
+    }
+
+    public void cancelar() {
+        if (this.status == StatusVenda.CONCLUIDA) {
+            throw new BusinessException("Uma venda concluída não pode ser cancelada.");
+        }
+        this.status = StatusVenda.CANCELADA;
     }
 }
 

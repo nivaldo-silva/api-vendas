@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,10 @@ public class Produto {
 
     @PositiveOrZero(message = "O estoque não pode ser negativo")
     private Integer estoque;
+
+    @NotNull(message = "O preço é obrigatório")
+    @Positive(message = "O preço deve ser maior que zero")
+    private BigDecimal preco;
 
     public void baixarEstoque(Integer quantidade) {
         if (quantidade > this.estoque) {

@@ -3,8 +3,6 @@ package io.github.nivaldosilva.api_vendas.mapper;
 import io.github.nivaldosilva.api_vendas.domain.Produto;
 import io.github.nivaldosilva.api_vendas.dto.ProdutoDTO;
 import lombok.experimental.UtilityClass;
-import java.util.ArrayList;
-import java.util.Optional;
 
 @UtilityClass
 public class ProdutoMapper {
@@ -15,8 +13,9 @@ public class ProdutoMapper {
         return Produto.builder()
                 .nome(request.nome())
                 .descricao(request.descricao())
-                .categorias(Optional.ofNullable(request.categorias()).orElse(new ArrayList<>()))
+                .categorias(request.categorias())
                 .codigoDeBarras(request.codigoDeBarras())
+                .preco(request.preco())
                 .estoque(request.estoque())
                 .build();
     }
@@ -30,6 +29,7 @@ public class ProdutoMapper {
                 .descricao(entity.getDescricao())
                 .categorias(entity.getCategorias())
                 .codigoDeBarras(entity.getCodigoDeBarras())
+                .preco(entity.getPreco())
                 .estoque(entity.getEstoque())
                 .build();
     }
