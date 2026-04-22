@@ -14,7 +14,7 @@ O projeto implementa um fluxo completo de vendas:
 - Padrao de erros baseado em RFC 7807 (`ProblemDetail`).
 - Documentacao interativa via Swagger/OpenAPI.
 
-## Stack Tecnologica
+## Stack Tecnológica
 
 - Java 21
 - Spring Boot 4.0.5
@@ -25,7 +25,7 @@ O projeto implementa um fluxo completo de vendas:
 - Lombok
 - Gradle Wrapper 9.4.1
 
-## Arquitetura e Organizacao
+## Arquitetura e Organização
 
 Estrutura principal:
 
@@ -97,7 +97,7 @@ cd api-vendas
 
 Garanta que o MongoDB esteja ativo na URI configurada.
 
-### 3) Rodar a aplicacao
+### 3) Rodar a aplicação
 
 No Windows:
 
@@ -127,11 +127,11 @@ Gerar build:
 gradlew.bat build
 ```
 
-Observacao: atualmente existe apenas teste de contexto da aplicacao (`ApiVendasApplicationTests`).
+Observacao: atualmente existe apenas teste de contexto da aplicação (`ApiVendasApplicationTests`).
 
 ## Documentacao da API (Swagger)
 
-Com a API em execucao:
+Com a API em execução:
 
 - Swagger UI: `http://localhost:8080/swagger-ui/index.html`
 - OpenAPI JSON: `http://localhost:8080/v3/api-docs`
@@ -239,7 +239,7 @@ Exemplo de request (`POST`):
 }
 ```
 
-## Regras de Negocio Principais
+## Regras de Negócio Principais
 
 - Nao permite cadastrar:
   - Categoria com nome duplicado.
