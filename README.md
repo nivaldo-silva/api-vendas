@@ -301,21 +301,6 @@ Exemplo de resposta de erro:
 }
 ```
 
-## Autenticacao e Autorizacao
-
-No estado atual, a API nao possui autenticacao/autorizacao implementada (sem Spring Security/JWT).  
-Todos os endpoints estao publicos.
-
-## Logs
-
-Controllers e services utilizam logs com `Slf4j` para rastrear fluxo de requisicoes, validacoes e operacoes de negocio.
-
-## Pontos de Atencao Identificados
-
-- `CategoriaRepository.findByNome` esta tipado como `Optional<Object>`; o ideal e `Optional<Categoria>`.
-- Em `CategoriaService.atualizar`, a comparacao de conflito usa `c.getClass().equals(id)`, comportamento inconsistente para comparacao de IDs.
-- A documentacao da operacao de cancelamento de venda menciona estorno de estoque, mas o cancelamento atual apenas altera status (nao recompoe estoque).
-- Suite de testes ainda enxuta (predomina teste de contexto da aplicacao).
 
 
 
